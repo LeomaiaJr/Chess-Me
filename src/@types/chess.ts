@@ -1,3 +1,4 @@
+import { Square } from 'chess.js';
 import { Object3D } from 'three';
 
 type NodesType =
@@ -19,3 +20,20 @@ type NodesType =
 export type ChessNodes = {
   [name in NodesType]: Object3D;
 };
+
+export type Piece = 'pawn' | 'rook' | 'bishop' | 'knight' | 'queen' | 'king';
+export type Color = 'b' | 'w';
+
+export type Position = [number, number];
+
+export interface PieceData {
+  square: Square;
+  piece: Piece;
+  color: Color;
+  id: string;
+}
+
+export interface GameData {
+  squares: (PieceData | null)[][];
+  deadPieces: Omit<PieceData, 'square'>[];
+}

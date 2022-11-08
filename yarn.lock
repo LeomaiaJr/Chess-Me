@@ -408,6 +408,11 @@
     suspend-react "^0.0.8"
     zustand "^3.7.1"
 
+"@types/chess.js@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@types/chess.js/-/chess.js-0.13.3.tgz#501c96c03ee3a11432d288cb28d12c7afe6f61cb"
+  integrity sha512-piyhKK3VkKVrgLT33wUQIg1wybb7yscW+X5PfXirTXy01XfwTLCB0HceXSbuK1wDsKQ3rfgYIBp3JC6nInD8aA==
+
 "@types/offscreencanvas@^2019.6.4":
   version "2019.7.0"
   resolved "https://registry.yarnpkg.com/@types/offscreencanvas/-/offscreencanvas-2019.7.0.tgz#e4a932069db47bb3eabeb0b305502d01586fa90d"
@@ -532,6 +537,11 @@ chalk@^2.0.0:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
+
+chess.js@^1.0.0-alpha.0:
+  version "1.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/chess.js/-/chess.js-1.0.0-alpha.0.tgz#3e476bdf58a908d93bddf879830860a9863147f6"
+  integrity sha512-nwEDlNEOZR/FaKW1DZLYtjgJrtAlxBW/6Fp4Hk8QXqpCCLrXweOU6/vKfJ/jNHT2gPqasxi0/ZPslcWAAdzozg==
 
 chevrotain@^10.1.2:
   version "10.3.0"

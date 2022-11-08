@@ -1,5 +1,4 @@
-export const SCALE_VALUE = 0.5;
-export const SCALE_XYZ = [SCALE_VALUE, SCALE_VALUE, SCALE_VALUE];
+import { Color, Piece } from '../@types/chess';
 
 export const CHESS_PIECES = [
   'bishop_b',
@@ -17,3 +16,36 @@ export const CHESS_PIECES = [
   'rook_b',
   'rook_w',
 ];
+
+export const PIECES_ALIAS: {
+  [key: string]: Piece;
+} = {
+  p: 'pawn',
+  r: 'rook',
+  b: 'bishop',
+  n: 'knight',
+  q: 'queen',
+  k: 'king',
+};
+
+export const SQUARE_TO_VECTOR_DATA = {
+  a: 0,
+  b: 1,
+  c: 2,
+  d: 3,
+  e: 4,
+  f: 5,
+  g: 6,
+  h: 7,
+  '1': 7,
+  '2': 6,
+  '3': 5,
+  '4': 4,
+  '5': 3,
+  '6': 2,
+  '7': 1,
+  '8': 0,
+} as const;
+
+export const DEFAULT_PIECE_Y = 30;
+export const SQUARE_SIZE = 250;

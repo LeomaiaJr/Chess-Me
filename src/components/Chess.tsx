@@ -1,20 +1,14 @@
 import {
-  OrbitControls,
-  Stats,
-  useGLTF,
-  Sky,
   BakeShadows,
   Environment,
+  OrbitControls,
+  Stats,
 } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import { ChessNodes } from '../@types/chess';
 import Chessboard from './Chessboard';
 
 const Chess = () => {
-  const chessData = useGLTF('/chess/chess.gltf');
-  const nodes = chessData.nodes as ChessNodes;
-
   return (
     <Canvas
       shadows
@@ -31,7 +25,7 @@ const Chess = () => {
         <OrbitControls />
         <BakeShadows />
 
-        <Chessboard nodes={nodes} />
+        <Chessboard />
       </Suspense>
     </Canvas>
   );

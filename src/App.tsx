@@ -1,19 +1,15 @@
-import {
-  OrbitControls,
-  Stats,
-  useGLTF,
-  Sky,
-  BakeShadows,
-  Environment,
-} from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
-import { ChessNodes } from './@types/chess';
+import { StrictMode } from 'react';
 import Chess from './components/Chess';
-import Chessboard from './components/Chessboard';
+import { ChessProvider } from './hooks/useChess';
 
 function App() {
-  return <Chess />;
+  return (
+    <StrictMode>
+      <ChessProvider>
+        <Chess />
+      </ChessProvider>
+    </StrictMode>
+  );
 }
 
 export default App;

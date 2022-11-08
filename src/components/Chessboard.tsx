@@ -1,20 +1,23 @@
-import { ChessNodes } from '../@types/chess';
-import { CHESS_PIECES } from '../constants/chess';
-
+import { useChess } from '../hooks/useChess';
+import { getAllPiecesData } from '../utils/chess';
 import Piece from './Piece';
 
-interface ChessboardProps {
-  nodes: ChessNodes;
-}
+const BOARD_POSITION = [875, 0, -875];
 
-const Chessboard = ({ nodes }: ChessboardProps) => {
+const Chessboard = () => {
+  const { nodes, gameData } = useChess();
+
   return (
-    <group scale={0.008}>
-      <primitive object={nodes.board} />
-      <primitive object={nodes.board_edge} />
+    <group scale={0.008} position={[-7, 0, 7]}>
+      <primitive object={nodes.board} position={BOARD_POSITION} />
+      <primitive object={nodes.board_edge} position={BOARD_POSITION} />
 
-      {CHESS_PIECES.map((piece, index) => (
-        <Piece key={piece} node={(nodes as any)[piece]} />
+      {getAllPiecesData(gameData).map((piece) => (
+        <Piece
+          key={piece.id}
+          piece={piece}
+          node={(nodes as any)[`${piece.piece}_${piece.color}`]}
+        />
       ))}
     </group>
   );
