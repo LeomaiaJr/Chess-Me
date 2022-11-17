@@ -36,7 +36,7 @@ export const getAllPiecesData = (gameData: GameData): PieceData[] =>
 
 export const squareToVector = (
   square: Square,
-  piece: Piece
+  piece?: Piece
 ): [number, number, number] => {
   const [x, y] = square.split('');
 
@@ -45,4 +45,13 @@ export const squareToVector = (
     piece === 'queen' ? 215 : DEFAULT_PIECE_Y,
     -SQUARE_SIZE * (SQUARE_TO_VECTOR_DATA as any)[y],
   ];
+};
+
+export const getAvailableMoves = (game: Chess, square: Square) =>
+  game.moves({ square, verbose: true });
+
+export const chessPositionToBoardPosition = (position: string) => {
+  const [x, y] = position.split('');
+
+  return [(SQUARE_TO_VECTOR_DATA as any)[x], 8 - +y];
 };

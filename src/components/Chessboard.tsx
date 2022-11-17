@@ -1,5 +1,7 @@
 import { useChess } from '../hooks/useChess';
 import { getAllPiecesData } from '../utils/chess';
+import AvailableMoves from './AvailableMoves';
+import DeadPiece from './DeadPiece';
 import Piece from './Piece';
 
 const BOARD_POSITION = [875, 0, -875];
@@ -19,6 +21,16 @@ const Chessboard = () => {
           node={(nodes as any)[`${piece.piece}_${piece.color}`]}
         />
       ))}
+
+      {gameData.deadPieces.map((piece) => (
+        <DeadPiece
+          key={piece.id}
+          piece={piece}
+          node={(nodes as any)[`${piece.piece}_${piece.color}`]}
+        />
+      ))}
+
+      <AvailableMoves />
     </group>
   );
 };

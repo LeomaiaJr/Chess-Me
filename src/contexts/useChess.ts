@@ -1,4 +1,4 @@
-import { Chess } from 'chess.js';
+import { Chess, Move } from 'chess.js';
 import { createContext } from 'react';
 import { GameData, ChessNodes, PieceData } from '../@types/chess';
 
@@ -7,10 +7,13 @@ export interface ChessContextData {
   nodes: ChessNodes;
 
   gameData: GameData;
-  setGameData: React.Dispatch<React.SetStateAction<GameData>>;
+
+  movePiece: (move: Move) => void;
 
   selectedPiece: PieceData | null;
   setSelectedPiece: React.Dispatch<React.SetStateAction<PieceData | null>>;
+
+  resetGame: () => void;
 }
 
 export const ChessContext = createContext<ChessContextData>(

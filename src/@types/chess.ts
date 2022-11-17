@@ -35,5 +35,5 @@ export interface PieceData {
 
 export interface GameData {
   squares: (PieceData | null)[][];
-  deadPieces: Omit<PieceData, 'square'>[];
+  deadPieces: PieceData[];
 }

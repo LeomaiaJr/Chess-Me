@@ -2,8 +2,9 @@ import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import { Group, Mesh, Object3D, Vector3 } from 'three';
 import { PieceData } from '../@types/chess';
+import { getYOffSet, PIECE_MOV_SPEED } from '../constants/chess';
 import { useChess } from '../hooks/useChess';
-import { squareToVector } from '../utils/chess';
+import { getAvailableMoves, squareToVector } from '../utils/chess';
 
 interface PieceProps {
   node: Object3D;
@@ -11,7 +12,7 @@ interface PieceProps {
 }
 
 const Piece = ({ node, piece }: PieceProps) => {
-  const { selectedPiece, setSelectedPiece } = useChess();
+  const { game, selectedPiece, setSelectedPiece } = useChess();
 
   const { geometry, material } = node.children[0] as Mesh;
 
@@ -22,6 +23,10 @@ const Piece = ({ node, piece }: PieceProps) => {
     squareToVector(piece.square, piece.piece)
   );
 
+  useEffect(() => {
+    setPositionToLerp(squareToVector(piece.square, piece.piece));
+  }, [piece.square]);
+
   useFrame(() => {
     if (!hasSetInitialPosition.current) {
       const [x, y, z] = squareToVector(piece.square, piece.piece);
@@ -31,16 +36,14 @@ const Piece = ({ node, piece }: PieceProps) => {
     } else {
       const [x, y, z] = positionToLerp;
 
-      groupRef?.current?.position.lerp(new Vector3(x, y, z), 0.1);
+      groupRef?.current?.position.lerp(new Vector3(x, y, z), PIECE_MOV_SPEED);
     }
   });
 
   useEffect(() => {
     const currPos = squareToVector(piece.square, piece.piece);
     if (selectedPiece?.id === piece.id) {
-      const yOffSet =
-        piece.piece === 'queen' && piece.color === 'b' ? 400 : 210;
-      setPositionToLerp([currPos[0], yOffSet, currPos[2]]);
+      setPositionToLerp([currPos[0], getYOffSet(piece), currPos[2]]);
     } else {
       setPositionToLerp(currPos);
     }
@@ -48,7 +51,8 @@ const Piece = ({ node, piece }: PieceProps) => {
 
   const pointerUpHandler = () => {
     if (selectedPiece?.id === piece.id) setSelectedPiece(null);
-    else setSelectedPiece(piece);
+    else if (getAvailableMoves(game, piece.square).length > 0)
+      setSelectedPiece(piece);
   };
 
   return (
@@ -57,7 +61,8 @@ const Piece = ({ node, piece }: PieceProps) => {
         geometry={geometry}
         material={material}
         onPointerUp={pointerUpHandler}
-      ></mesh>
+        rotation={[0, 0, Math.PI]}
+      />
     </group>
   );
 };

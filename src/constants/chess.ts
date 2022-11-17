@@ -1,4 +1,4 @@
-import { Color, Piece } from '../@types/chess';
+import { Color, Piece, PieceData } from '../@types/chess';
 
 export const CHESS_PIECES = [
   'bishop_b',
@@ -49,3 +49,7 @@ export const SQUARE_TO_VECTOR_DATA = {
 
 export const DEFAULT_PIECE_Y = 30;
 export const SQUARE_SIZE = 250;
+
+export const PIECE_MOV_SPEED = 0.08;
+export const getYOffSet = (piece: PieceData) =>
+  piece.piece === 'queen' && piece.color === 'b' ? 400 : 210;
