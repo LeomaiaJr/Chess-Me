@@ -1,4 +1,4 @@
-import { Square } from 'chess.js';
+import { PieceSymbol, Square } from 'chess.js';
 import { Object3D } from 'three';
 
 type NodesType =
@@ -31,6 +31,7 @@ export interface PieceData {
   piece: Piece;
   color: Color;
   id: string;
+  type?: PieceSymbol;
 }
 
 export interface GameData {

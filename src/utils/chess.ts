@@ -1,4 +1,4 @@
-import { Chess, Square } from 'chess.js';
+import { Chess, Move, Square } from 'chess.js';
 import { Color, GameData, Piece, PieceData } from '../@types/chess';
 import {
   DEFAULT_PIECE_Y,
@@ -63,8 +63,13 @@ export const squareToVector = (
   ];
 };
 
-export const getAvailableMoves = (game: Chess, square: Square) =>
-  game.moves({ square, verbose: true });
+export const getAvailableMoves = (game: Chess, square: Square) => {
+  const moves = game.moves({ square, verbose: true });
+
+  return (moves as Move[]).filter(
+    (move) => move.promotion === 'q' || !move.promotion
+  );
+};
 
 export const chessPositionToBoardPosition = (position: string) => {
   const [x, y] = position.split('');

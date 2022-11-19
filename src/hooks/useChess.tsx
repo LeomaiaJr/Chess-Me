@@ -42,6 +42,8 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
         deadPieces: [...prev.deadPieces, capturedPiece!],
       }));
 
+      setSelectedPiece(null);
+
       await new Promise((resolve) => setTimeout(resolve, 500));
       newGameData.deadPieces.push(capturedPiece!);
     }
@@ -51,6 +53,15 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
       ...squareData,
       square: move.to,
     } as PieceData;
+
+    if (move.promotion !== undefined) {
+      newGameData.squares[tRow][tCol] = {
+        ...squareData,
+        square: move.to,
+        piece: 'queen',
+        type: 'q',
+      } as PieceData;
+    }
 
     setGameData(newGameData);
     game.move(move);

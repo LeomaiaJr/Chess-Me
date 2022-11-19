@@ -11,13 +11,15 @@ interface HoverableSquareProps {
 const HoverableSquare = ({ move }: HoverableSquareProps) => {
   const { movePiece } = useChess();
 
+  const isCapture = move.captured !== undefined;
+
   const [isHovered, setIsHovered] = useState(false);
   const [x, _, z] = squareToVector(move.to as Square);
 
   return (
     <group position={[x, 35, z]} rotation={[-Math.PI / 2, 0, 0]}>
       <Circle
-        args={[50, 50, 1]}
+        args={[isCapture ? 90 : 50, 50, 1]}
         onPointerOver={() => setIsHovered(true)}
         onPointerOut={() => setIsHovered(false)}
         onPointerUp={() => movePiece(move)}
@@ -25,7 +27,7 @@ const HoverableSquare = ({ move }: HoverableSquareProps) => {
         <meshBasicMaterial color="#008080" />
       </Circle>
       {isHovered && (
-        <Circle position={[0, 0, -1]} args={[60, 50, 1]}>
+        <Circle position={[0, 0, -1]} args={[isCapture ? 100 : 60, 50, 1]}>
           <meshBasicMaterial color={'#395B64'} />
         </Circle>
       )}
