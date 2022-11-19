@@ -10,11 +10,7 @@ import { useChess } from '../hooks/useChess';
 import Chessboard from './Chessboard';
 
 const Chess = () => {
-  const { gameData, resetGame } = useChess();
-
-  useEffect(() => {
-    console.log(gameData);
-  }, [gameData]);
+  const { resetGame } = useChess();
 
   return (
     <>

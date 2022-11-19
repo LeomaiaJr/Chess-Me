@@ -1,5 +1,5 @@
 import { Chess, Square } from 'chess.js';
-import { GameData, Piece, PieceData } from '../@types/chess';
+import { Color, GameData, Piece, PieceData } from '../@types/chess';
 import {
   DEFAULT_PIECE_Y,
   PIECES_ALIAS,
@@ -31,8 +31,24 @@ export const getAppPiecesData = (): GameData => {
   };
 };
 
-export const getAllPiecesData = (gameData: GameData): PieceData[] =>
-  gameData.squares.flat().filter((piece) => piece !== null) as PieceData[];
+export type InGamePieceData = PieceData & {
+  isAlive: boolean;
+};
+
+export const getAllPiecesData = (gameData: GameData): InGamePieceData[] =>
+  gameData.squares
+    .flat()
+    .filter((piece) => piece !== null)
+    .map((piece) => ({
+      ...piece,
+      isAlive: true,
+    }))
+    .concat(
+      gameData.deadPieces.map((piece) => ({
+        ...piece,
+        isAlive: false,
+      }))
+    ) as InGamePieceData[];
 
 export const squareToVector = (
   square: Square,
@@ -55,3 +71,5 @@ export const chessPositionToBoardPosition = (position: string) => {
 
   return [(SQUARE_TO_VECTOR_DATA as any)[x], 8 - +y];
 };
+
+export const getOppositeColor = (color: Color) => (color === 'b' ? 'w' : 'b');

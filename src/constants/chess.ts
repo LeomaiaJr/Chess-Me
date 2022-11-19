@@ -52,4 +52,17 @@ export const SQUARE_SIZE = 250;
 
 export const PIECE_MOV_SPEED = 0.08;
 export const getYOffSet = (piece: PieceData) =>
-  piece.piece === 'queen' && piece.color === 'b' ? 400 : 210;
+  piece.piece === 'queen' ? 400 : 210;
+
+export const STAND_POS = {
+  b: {
+    x: -1000,
+    y: 280,
+    z: -1435,
+  },
+  w: {
+    x: 2750,
+    y: 280,
+    z: -1435,
+  },
+};
