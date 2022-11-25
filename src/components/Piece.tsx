@@ -89,6 +89,8 @@ const Piece = ({ node, piece }: PieceProps) => {
   return (
     <group {...node} ref={groupRef}>
       <mesh
+        castShadow
+        receiveShadow
         geometry={geometry}
         material={material}
         onPointerUp={pointerUpHandler}

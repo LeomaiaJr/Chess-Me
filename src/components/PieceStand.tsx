@@ -1,6 +1,6 @@
 import { Box } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { Group, Mesh, Vector3 } from 'three';
 import { Color } from '../@types/chess';
 import { STAND_POS } from '../constants/chess';

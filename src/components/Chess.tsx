@@ -1,12 +1,8 @@
-import {
-  BakeShadows,
-  Environment,
-  OrbitControls,
-  Stats,
-} from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { useChess } from '../hooks/useChess';
+import ChessCamera from './Camera';
 import Chessboard from './Chessboard';
 
 const Chess = () => {
@@ -22,19 +18,33 @@ const Chess = () => {
         reset
       </button>
       <Canvas
+        dpr={[1, 2]}
         shadows
-        style={{
-          background: 'grey',
+        camera={{
+          position: [0, 18, 0],
         }}
       >
         <Suspense fallback={null}>
           <Environment
-            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/evening_road_01_2k.hdr"
-            ground={{ height: 1, radius: 1, scale: 0.1 }}
+            ground={{
+              scale: 150,
+            }}
+            path={`cube/`}
+            files={[`px.png`, `nx.png`, `py.png`, `ny.png`, `pz.png`, `nz.png`]}
           />
-          {/* <Stats /> */}
-          <OrbitControls />
-          <BakeShadows />
+
+          <ChessCamera />
+
+          <directionalLight
+            position={[0, 1, 0]}
+            intensity={0.5}
+            color="white"
+          />
+
+          <mesh scale={20} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry />
+            <shadowMaterial transparent opacity={0.5} />
+          </mesh>
 
           <Chessboard />
         </Suspense>

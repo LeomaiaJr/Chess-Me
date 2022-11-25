@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useChess } from '../hooks/useChess';
 import { getAllPiecesData } from '../utils/chess';
 import AvailableMoves from './AvailableMoves';
@@ -7,12 +8,19 @@ import PieceStand from './PieceStand';
 const BOARD_POSITION = [875, 0, -875];
 
 const Chessboard = () => {
-  const { nodes, gameData } = useChess();
+  const { nodes, gameData, game } = useChess();
+
+  useEffect(() => {
+    // console.log(gameData.squares);
+    // console.log(game.board());
+  }, [gameData]);
 
   return (
     <group scale={0.008} position={[-7, 0, 7]}>
-      <primitive object={nodes.board} position={BOARD_POSITION} />
-      <primitive object={nodes.board_edge} position={BOARD_POSITION} />
+      <group castShadow={false} receiveShadow={false}>
+        <primitive object={nodes.board} position={BOARD_POSITION} />
+        <primitive object={nodes.board_edge} position={BOARD_POSITION} />
+      </group>
 
       {getAllPiecesData(gameData).map((piece) => (
         <Piece
