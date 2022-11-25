@@ -1,3 +1,4 @@
+import { Float } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import { Group, Mesh, Object3D, Vector3 } from 'three';
@@ -86,17 +87,25 @@ const Piece = ({ node, piece }: PieceProps) => {
     if (!piece.isAlive && !isOnStand.current) deadAnim();
   }, [piece.isAlive]);
 
+  const shouldFloat = piece.isAlive && selectedPiece?.id === piece.id;
+
   return (
-    <group {...node} ref={groupRef}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={geometry}
-        material={material}
-        onPointerUp={pointerUpHandler}
-        rotation={[0, 0, Math.PI]}
-      />
-    </group>
+    <Float
+      speed={shouldFloat ? 1 : 0}
+      rotationIntensity={shouldFloat ? 0.2 : 0}
+      floatIntensity={shouldFloat ? 0.2 : 0}
+    >
+      <group {...node} ref={groupRef}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={geometry}
+          material={material}
+          onPointerUp={pointerUpHandler}
+          rotation={[0, 0, Math.PI]}
+        />
+      </group>
+    </Float>
   );
 };
 

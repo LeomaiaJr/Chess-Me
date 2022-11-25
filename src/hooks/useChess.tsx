@@ -63,6 +63,7 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
       } as PieceData;
     }
 
+    setSelectedPiece(null);
     setGameData(newGameData);
     game.move(move);
   };
