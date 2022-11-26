@@ -21,7 +21,7 @@ const PlayerIcon = ({ isLeoPlayer = false }: PlayerIconProps) => {
   const getStyles = () => {
     const leftSpacing = window.innerWidth < 1000 ? '32px' : '64px';
 
-    if (isLeoPlayer) {
+    if (!isLeoPlayer) {
       return {
         bottom: window.innerWidth < 1000 ? '32px' : '96px',
         right: leftSpacing,
