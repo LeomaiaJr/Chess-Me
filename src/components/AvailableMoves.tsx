@@ -2,6 +2,7 @@ import { Circle } from '@react-three/drei';
 import { Move, Square } from 'chess.js';
 import { useState } from 'react';
 import { useChess } from '../hooks/useChess';
+import { COLORS } from '../styles/pallete';
 import { getAvailableMoves, squareToVector } from '../utils/chess';
 
 interface HoverableSquareProps {
@@ -24,11 +25,11 @@ const HoverableSquare = ({ move }: HoverableSquareProps) => {
         onPointerOut={() => setIsHovered(false)}
         onPointerUp={() => movePiece(move)}
       >
-        <meshBasicMaterial color="#008080" />
+        <meshBasicMaterial color={COLORS.SECONDARY} />
       </Circle>
       {isHovered && (
         <Circle position={[0, 0, -1]} args={[isCapture ? 100 : 60, 50, 1]}>
-          <meshBasicMaterial color={'#395B64'} />
+          <meshBasicMaterial color={COLORS.PRIMARY} />
         </Circle>
       )}
     </group>
