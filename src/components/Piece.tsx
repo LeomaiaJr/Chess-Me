@@ -91,7 +91,7 @@ const Piece = ({ node, piece }: PieceProps) => {
 
   return (
     <Float
-      speed={shouldFloat ? 1 : 0}
+      speed={shouldFloat ? 5 : 0}
       rotationIntensity={shouldFloat ? 0.2 : 0}
       floatIntensity={shouldFloat ? 0.2 : 0}
     >

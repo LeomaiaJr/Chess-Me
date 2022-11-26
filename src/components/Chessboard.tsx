@@ -8,12 +8,7 @@ import PieceStand from './PieceStand';
 const BOARD_POSITION = [875, 0, -875];
 
 const Chessboard = () => {
-  const { nodes, gameData, game } = useChess();
-
-  useEffect(() => {
-    // console.log(gameData.squares);
-    // console.log(game.board());
-  }, [gameData]);
+  const { nodes, gameData } = useChess();
 
   return (
     <group scale={0.008} position={[-7, 0, 7]}>

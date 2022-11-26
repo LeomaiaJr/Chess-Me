@@ -1,22 +1,22 @@
 import { Environment } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import { useChess } from '../hooks/useChess';
+import { EnvironmentPresets } from '../@types/interface';
+import { useInterface } from '../hooks/useInterface';
 import ChessCamera from './Camera';
 import Chessboard from './Chessboard';
+import ChessMeText from './ChessMeText';
 
 const Chess = () => {
-  const { resetGame } = useChess();
+  const { environmentPreset } = useInterface();
+
+  const preset =
+    environmentPreset === EnvironmentPresets.LEOS_CUSTOM
+      ? undefined
+      : environmentPreset;
 
   return (
     <>
-      <button
-        onClick={() => {
-          resetGame();
-        }}
-      >
-        reset
-      </button>
       <Canvas
         dpr={[1, 2]}
         shadows
@@ -26,6 +26,7 @@ const Chess = () => {
       >
         <Suspense fallback={null}>
           <Environment
+            preset={preset}
             ground={{
               scale: 150,
             }}
@@ -45,6 +46,8 @@ const Chess = () => {
             <planeGeometry />
             <shadowMaterial transparent opacity={0.5} />
           </mesh>
+
+          <ChessMeText />
 
           <Chessboard />
         </Suspense>

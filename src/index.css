@@ -8,3 +8,8 @@ html {
 #root {
   height: 100%;
 }
+
+.stats {
+  right: 0;
+  left: unset !important;
+}
