@@ -1,8 +1,7 @@
 import { useGLTF } from '@react-three/drei';
-import { Square } from 'chess.js';
 import { Chess, Move } from 'chess.js';
 import React, { useContext, useMemo, useState } from 'react';
-import { GameData, ChessNodes, PieceData } from '../@types/chess';
+import { ChessNodes, GameData, PieceData } from '../@types/chess';
 import { ChessContext, ChessContextData } from '../contexts/useChess';
 import { chessPositionToBoardPosition, getAppPiecesData } from '../utils/chess';
 
