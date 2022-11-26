@@ -17,7 +17,7 @@ const ChessMeText = () => {
         bevelSize={0.05}
       >
         Chess Me
-        <meshStandardMaterial {...whiteMat} />
+        <meshStandardMaterial {...(whiteMat as any)} />
       </Text3D>
 
       <Text3D
@@ -27,7 +27,7 @@ const ChessMeText = () => {
         bevelSize={0.05}
       >
         By Leo
-        <meshStandardMaterial {...blackMat} />
+        <meshStandardMaterial {...(blackMat as any)} />
       </Text3D>
     </group>
   );

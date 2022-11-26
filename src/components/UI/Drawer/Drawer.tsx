@@ -70,7 +70,7 @@ const AppDrawer = () => {
             </Box>
             <DrawerDivider />
 
-            <Box display="flex" alignItems="center" gap={2}>
+            <Box display="flex" alignItems="center" gap={2} component="div">
               <AccountCircleIcon
                 sx={{
                   color: COLORS.PRIMARY,
@@ -93,7 +93,7 @@ const AppDrawer = () => {
             </Box>
             <DrawerDivider />
 
-            <Box display="flex" alignItems="center" gap={2}>
+            <Box display="flex" alignItems="center" gap={2} component="div">
               <NaturePeopleIcon
                 sx={{
                   color: COLORS.PRIMARY,
