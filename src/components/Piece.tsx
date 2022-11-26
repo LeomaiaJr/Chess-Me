@@ -95,7 +95,7 @@ const Piece = ({ node, piece }: PieceProps) => {
       rotationIntensity={shouldFloat ? 0.2 : 0}
       floatIntensity={shouldFloat ? 0.2 : 0}
     >
-      <group {...node} ref={groupRef}>
+      <group {...(node as any)} ref={groupRef}>
         <mesh
           castShadow
           receiveShadow

@@ -45,7 +45,7 @@ const PieceStand = ({ color }: PieceStandProps) => {
         scale={[10, 1, 10]}
         position={[x, -130, -875]}
       >
-        <meshStandardMaterial {...material} />
+        <meshStandardMaterial {...(material as any)} />
       </Box>
     </group>
   );
