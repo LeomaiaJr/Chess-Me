@@ -11,6 +11,10 @@ interface InterfaceProviderProps {
 
 const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
   const [showStats, setShowStats] = useState(false);
+  const [showPlayerIcons, setShowPlayerIcons] = useState(true);
+
+  const [isCameraMoving, setIsCameraMoving] = useState(false);
+
   const [environmentPreset, setEnvironmentPreset] = useState(
     EnvironmentPresets.LEOS_CUSTOM
   );
@@ -20,8 +24,12 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
       value={{
         showStats,
         setShowStats,
+        showPlayerIcons,
+        setShowPlayerIcons,
         environmentPreset,
         setEnvironmentPreset,
+        isCameraMoving,
+        setIsCameraMoving,
       }}
     >
       {children}

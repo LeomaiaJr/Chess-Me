@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -20,8 +21,14 @@ import { EnvironmentPresets } from '../../../@types/interface';
 import { EnvironmentPresetsLabels } from '../../../constants/interface';
 
 const AppDrawer = () => {
-  const { showStats, setShowStats, environmentPreset, setEnvironmentPreset } =
-    useInterface();
+  const {
+    showStats,
+    setShowStats,
+    showPlayerIcons,
+    setShowPlayerIcons,
+    environmentPreset,
+    setEnvironmentPreset,
+  } = useInterface();
 
   const [open, setOpen] = useState(false);
 
@@ -40,7 +47,7 @@ const AppDrawer = () => {
             <Typography variant="h6">Chess Me</Typography>
             <DrawerDivider />
 
-            <Box display="flex" alignItems="center" gap={2}>
+            <Box display="flex" alignItems="center" gap={2} component="div">
               <QueryStatsIcon
                 sx={{
                   color: COLORS.PRIMARY,
@@ -58,6 +65,29 @@ const AppDrawer = () => {
                   />
                 }
                 label="Show FPS & Stats"
+                labelPlacement="end"
+              />
+            </Box>
+            <DrawerDivider />
+
+            <Box display="flex" alignItems="center" gap={2}>
+              <AccountCircleIcon
+                sx={{
+                  color: COLORS.PRIMARY,
+                }}
+              />
+              <FormControlLabel
+                value="start"
+                control={
+                  <Switch
+                    color="primary"
+                    checked={showPlayerIcons}
+                    onChange={() => {
+                      setShowPlayerIcons(!showPlayerIcons);
+                    }}
+                  />
+                }
+                label="Show Player Icons"
                 labelPlacement="end"
               />
             </Box>
@@ -92,7 +122,7 @@ const AppDrawer = () => {
               </FormControl>
             </Box>
           </Stack>
-          <Box>
+          <Box component="div">
             <Typography variant="caption">Made by Leo</Typography>
           </Box>
         </Stack>
