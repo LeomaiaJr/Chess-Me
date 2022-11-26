@@ -5,6 +5,7 @@ import { EnvironmentPresets } from '../@types/interface';
 import { useInterface } from '../hooks/useInterface';
 import ChessCamera from './Camera';
 import Chessboard from './Chessboard';
+import ChessMeText from './ChessMeText';
 
 const Chess = () => {
   const { environmentPreset } = useInterface();
@@ -45,6 +46,8 @@ const Chess = () => {
             <planeGeometry />
             <shadowMaterial transparent opacity={0.5} />
           </mesh>
+
+          <ChessMeText />
 
           <Chessboard />
         </Suspense>
