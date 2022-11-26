@@ -66,9 +66,6 @@ const ChessCamera = () => {
       target={[0, 0, 0]}
       maxPolarAngle={Math.PI / 2.1}
       maxDistance={80}
-      onPointerUp={() => {
-        console.log(32);
-      }}
     />
   );
 };
