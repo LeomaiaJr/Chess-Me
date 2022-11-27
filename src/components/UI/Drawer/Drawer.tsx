@@ -19,6 +19,7 @@ import { DrawerButton, DrawerDivider, ResponsiveDrawer } from './styles';
 import { useInterface } from '../../../hooks/useInterface';
 import { EnvironmentPresets } from '../../../@types/interface';
 import { EnvironmentPresetsLabels } from '../../../constants/interface';
+import LeoToken from '../LeoToken/LeoToken';
 
 const AppDrawer = () => {
   const {
@@ -123,7 +124,7 @@ const AppDrawer = () => {
             </Box>
           </Stack>
           <Box component="div">
-            <Typography variant="caption">Made by Leo</Typography>
+            <LeoToken />
           </Box>
         </Stack>
       </ResponsiveDrawer>
