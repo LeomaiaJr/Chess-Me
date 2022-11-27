@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { EnvironmentPresets } from '../@types/interface';
 import {
   InterfaceContext,
-  InterfaceContextData,
+  InterfaceContextData
 } from '../contexts/useInterface';
 
 interface InterfaceProviderProps {
@@ -20,6 +20,13 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
   );
 
   const [leosSecret, setLeosSecret] = useState<string | undefined>();
+  const [playerName, setPlayerName] = useState(
+    localStorage.getItem('chessme:playerName')
+  );
+
+  useEffect(() => {
+    if (playerName) localStorage.setItem('chessme:playerName', playerName);
+  }, [playerName]);
 
   return (
     <InterfaceContext.Provider
@@ -34,6 +41,8 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
         setIsCameraMoving,
         leosSecret,
         setLeosSecret,
+        playerName,
+        setPlayerName,
       }}
     >
       {children}
