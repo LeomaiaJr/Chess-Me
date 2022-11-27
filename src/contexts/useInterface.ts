@@ -18,6 +18,9 @@ export interface InterfaceContextData {
 
   leosSecret: string | undefined;
   setLeosSecret: React.Dispatch<React.SetStateAction<string | undefined>>;
+
+  playerName: string | null;
+  setPlayerName: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const InterfaceContext = createContext<InterfaceContextData>(
