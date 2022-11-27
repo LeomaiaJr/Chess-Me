@@ -19,6 +19,8 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
     EnvironmentPresets.LEOS_CUSTOM
   );
 
+  const [leosSecret, setLeosSecret] = useState<string | undefined>();
+
   return (
     <InterfaceContext.Provider
       value={{
@@ -30,6 +32,8 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
         setEnvironmentPreset,
         isCameraMoving,
         setIsCameraMoving,
+        leosSecret,
+        setLeosSecret,
       }}
     >
       {children}

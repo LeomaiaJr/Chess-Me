@@ -15,6 +15,9 @@ export interface InterfaceContextData {
 
   isCameraMoving: boolean;
   setIsCameraMoving: React.Dispatch<React.SetStateAction<boolean>>;
+
+  leosSecret: string | undefined;
+  setLeosSecret: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export const InterfaceContext = createContext<InterfaceContextData>(
