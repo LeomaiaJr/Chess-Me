@@ -1,4 +1,9 @@
 export const COLORS = {
   PRIMARY: '#395B64',
   SECONDARY: '#008080',
+
+  SUCESS: '#34C38F',
+  DANGER: '#F46A6A',
+  INFO: '#50A5F1',
+  WARNING: '#F1B44C',
 };

@@ -7,6 +7,7 @@ export interface ChessContextData {
   nodes: ChessNodes;
 
   gameData: GameData;
+  setGameData: React.Dispatch<React.SetStateAction<GameData>>;
 
   movePiece: (move: Move) => void;
 
