@@ -11,18 +11,18 @@ export const getAppPiecesData = (): GameData => {
   const rawBoard = [...new Chess().board()] as any[][];
 
   rawBoard.forEach((row, rowIndex) => {
-    if ([0, 1, 6, 7].includes(rowIndex)) {
-      row.forEach((piece) => {
-        if (piece) {
-          const pieceIndex = row.indexOf(piece);
-          row[pieceIndex] = {
-            ...row[pieceIndex],
-            piece: PIECES_ALIAS[piece.type],
-            id: `${piece.type}_${piece.color}_${pieceIndex}`,
-          };
-        }
-      });
-    }
+    row.forEach((piece) => {
+      if (piece) {
+        const pieceIndex = row.indexOf(piece);
+        const indexLabelID = `${rowIndex}${pieceIndex}`;
+
+        row[pieceIndex] = {
+          ...row[pieceIndex],
+          piece: PIECES_ALIAS[piece.type],
+          id: `${piece.type}_${piece.color}_${indexLabelID}`,
+        };
+      }
+    });
   });
 
   return {

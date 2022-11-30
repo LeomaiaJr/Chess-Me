@@ -3,13 +3,17 @@ import { Chess, Move } from 'chess.js';
 import React, { useContext, useMemo, useState } from 'react';
 import { ChessNodes, GameData, PieceData } from '../@types/chess';
 import { ChessContext, ChessContextData } from '../contexts/useChess';
+import { makeMovement } from '../infra/service';
 import { chessPositionToBoardPosition, getAppPiecesData } from '../utils/chess';
+import { useInterface } from './useInterface';
 
 interface ChessProviderProps {
   children: React.ReactNode;
 }
 
 const ChessProvider = ({ children }: ChessProviderProps) => {
+  const { leosSecret, playerName } = useInterface();
+
   const game = useMemo(() => {
     return new Chess();
   }, []);
@@ -65,6 +69,12 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
     setSelectedPiece(null);
     setGameData(newGameData);
     game.move(move);
+
+    makeMovement({
+      move,
+      leosSecret,
+      playerName: playerName || '',
+    });
   };
 
   return (
@@ -73,6 +83,7 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
         game,
         nodes: chessData.nodes as ChessNodes,
         gameData,
+        setGameData,
         movePiece,
         selectedPiece,
         setSelectedPiece,

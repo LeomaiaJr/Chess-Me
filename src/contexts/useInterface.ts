@@ -21,6 +21,12 @@ export interface InterfaceContextData {
 
   playerName: string | null;
   setPlayerName: React.Dispatch<React.SetStateAction<string | null>>;
+
+  isLoadingGameData: boolean;
+  setIsLoadingGameData: React.Dispatch<React.SetStateAction<boolean>>;
+
+  playersConnected: number;
+  setPlayersConnected: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const InterfaceContext = createContext<InterfaceContextData>(

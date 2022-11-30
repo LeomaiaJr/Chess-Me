@@ -1,18 +1,13 @@
-import { StrictMode } from 'react';
+import Chess from './components/Chess';
 import UserInterface from './components/UI/UserInterface';
-import { useConnection } from './hooks/useConnection';
 import AppProvider from './providers';
 
 function App() {
-  useConnection();
-
   return (
-    <StrictMode>
-      <AppProvider>
-        <UserInterface />
-        {/* <Chess /> */}
-      </AppProvider>
-    </StrictMode>
+    <AppProvider>
+      <UserInterface />
+      <Chess />
+    </AppProvider>
   );
 }
 

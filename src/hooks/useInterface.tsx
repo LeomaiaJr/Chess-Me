@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { EnvironmentPresets } from '../@types/interface';
 import {
   InterfaceContext,
-  InterfaceContextData
+  InterfaceContextData,
 } from '../contexts/useInterface';
 
 interface InterfaceProviderProps {
@@ -14,6 +14,7 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
   const [showPlayerIcons, setShowPlayerIcons] = useState(true);
 
   const [isCameraMoving, setIsCameraMoving] = useState(false);
+  const [isLoadingGameData, setIsLoadingGameData] = useState(true);
 
   const [environmentPreset, setEnvironmentPreset] = useState(
     EnvironmentPresets.LEOS_CUSTOM
@@ -23,6 +24,8 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
   const [playerName, setPlayerName] = useState(
     localStorage.getItem('chessme:playerName')
   );
+
+  const [playersConnected, setPlayersConnected] = useState(0);
 
   useEffect(() => {
     if (playerName) localStorage.setItem('chessme:playerName', playerName);
@@ -43,6 +46,10 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
         setLeosSecret,
         playerName,
         setPlayerName,
+        isLoadingGameData,
+        setIsLoadingGameData,
+        playersConnected,
+        setPlayersConnected,
       }}
     >
       {children}
