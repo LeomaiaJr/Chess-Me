@@ -7,6 +7,7 @@ import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import GroupIcon from '@mui/icons-material/Group';
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -19,6 +20,7 @@ import { DrawerButton, DrawerDivider, ResponsiveDrawer } from './styles';
 import { useInterface } from '../../../hooks/useInterface';
 import { EnvironmentPresets } from '../../../@types/interface';
 import { EnvironmentPresetsLabels } from '../../../constants/interface';
+import LeoToken from '../LeoToken/LeoToken';
 
 const AppDrawer = () => {
   const {
@@ -28,7 +30,13 @@ const AppDrawer = () => {
     setShowPlayerIcons,
     environmentPreset,
     setEnvironmentPreset,
+    playersConnected,
   } = useInterface();
+
+  const getPlayersConnectedLabel = () => {
+    if (playersConnected === 1) return '1 player connected';
+    return `${playersConnected} players connected`;
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -121,9 +129,21 @@ const AppDrawer = () => {
                 </Select>
               </FormControl>
             </Box>
+
+            <DrawerDivider />
+            <Box display="flex" alignItems="center" gap={2} component="div">
+              <GroupIcon
+                sx={{
+                  color: COLORS.PRIMARY,
+                }}
+              />
+              <Typography variant="subtitle1">
+                {getPlayersConnectedLabel()}
+              </Typography>
+            </Box>
           </Stack>
           <Box component="div">
-            <Typography variant="caption">Made by Leo</Typography>
+            <LeoToken />
           </Box>
         </Stack>
       </ResponsiveDrawer>

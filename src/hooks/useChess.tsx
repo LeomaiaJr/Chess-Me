@@ -1,15 +1,21 @@
 import { useGLTF } from '@react-three/drei';
+import { isAxiosError } from 'axios';
 import { Chess, Move } from 'chess.js';
 import React, { useContext, useMemo, useState } from 'react';
 import { ChessNodes, GameData, PieceData } from '../@types/chess';
 import { ChessContext, ChessContextData } from '../contexts/useChess';
+import { makeMovement } from '../infra/service';
 import { chessPositionToBoardPosition, getAppPiecesData } from '../utils/chess';
+import SnackbarUtils from '../utils/SnackbarUtils';
+import { useInterface } from './useInterface';
 
 interface ChessProviderProps {
   children: React.ReactNode;
 }
 
 const ChessProvider = ({ children }: ChessProviderProps) => {
+  const { leosSecret, playerName } = useInterface();
+
   const game = useMemo(() => {
     return new Chess();
   }, []);
@@ -19,52 +25,66 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
   const [gameData, setGameData] = useState<GameData>(getAppPiecesData());
   const [selectedPiece, setSelectedPiece] = useState<PieceData | null>(null);
 
-  const resetGame = () => {
-    game.reset();
-    setGameData(getAppPiecesData());
-  };
-
   const movePiece = async (move: Move) => {
-    const [fCol, fRow] = chessPositionToBoardPosition(move.from);
-    const [tCol, tRow] = chessPositionToBoardPosition(move.to);
+    try {
+      await makeMovement({
+        move,
+        leosSecret,
+        playerName: playerName || '',
+      });
 
-    const newGameData = { ...gameData };
-    const prevGameData = { ...gameData };
+      const [fCol, fRow] = chessPositionToBoardPosition(move.from);
+      const [tCol, tRow] = chessPositionToBoardPosition(move.to);
 
-    const squareData = newGameData.squares[fRow][fCol];
+      const newGameData = { ...gameData };
+      const prevGameData = { ...gameData };
 
-    if (move.captured !== undefined) {
-      const capturedPiece = prevGameData.squares[tRow][tCol];
-      prevGameData.squares[tRow][tCol] = null;
-      setGameData((prev) => ({
-        ...prev,
-        deadPieces: [...prev.deadPieces, capturedPiece!],
-      }));
+      const squareData = newGameData.squares[fRow][fCol];
 
-      setSelectedPiece(null);
+      if (move.captured !== undefined) {
+        const capturedPiece = prevGameData.squares[tRow][tCol];
+        prevGameData.squares[tRow][tCol] = null;
+        setGameData((prev) => ({
+          ...prev,
+          deadPieces: [...prev.deadPieces, capturedPiece!],
+        }));
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      newGameData.deadPieces.push(capturedPiece!);
-    }
+        setSelectedPiece(null);
 
-    prevGameData.squares[fRow][fCol] = null;
-    newGameData.squares[tRow][tCol] = {
-      ...squareData,
-      square: move.to,
-    } as PieceData;
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        newGameData.deadPieces.push(capturedPiece!);
+      }
 
-    if (move.promotion !== undefined) {
+      prevGameData.squares[fRow][fCol] = null;
       newGameData.squares[tRow][tCol] = {
         ...squareData,
         square: move.to,
-        piece: 'queen',
-        type: 'q',
       } as PieceData;
-    }
 
-    setSelectedPiece(null);
-    setGameData(newGameData);
-    game.move(move);
+      if (move.promotion !== undefined) {
+        newGameData.squares[tRow][tCol] = {
+          ...squareData,
+          square: move.to,
+          piece: 'queen',
+          type: 'q',
+        } as PieceData;
+      }
+
+      setSelectedPiece(null);
+      setGameData(newGameData);
+      game.move(move);
+    } catch (err) {
+      if (isAxiosError(err)) {
+        if (err.response?.status === 403)
+          SnackbarUtils.error('Error, only Leo can move the white pieces');
+        else
+          SnackbarUtils.error(
+            'Error while making movement, please try again later'
+          );
+      } else {
+        SnackbarUtils.error('Error while making movement');
+      }
+    }
   };
 
   return (
@@ -73,10 +93,10 @@ const ChessProvider = ({ children }: ChessProviderProps) => {
         game,
         nodes: chessData.nodes as ChessNodes,
         gameData,
+        setGameData,
         movePiece,
         selectedPiece,
         setSelectedPiece,
-        resetGame,
       }}
     >
       {children}
