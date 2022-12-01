@@ -4,12 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Group, Mesh, Object3D, Vector3 } from 'three';
 import { getYOffSet, PIECE_MOV_SPEED } from '../constants/chess';
 import { useChess } from '../hooks/useChess';
+import { useInterface } from '../hooks/useInterface';
 import { getPieceDeadAnimPos } from '../utils/anim';
 import {
   getAvailableMoves,
   InGamePieceData,
   squareToVector,
 } from '../utils/chess';
+import SnackbarUtils from '../utils/SnackbarUtils';
 
 interface PieceProps {
   node: Object3D;
@@ -17,6 +19,7 @@ interface PieceProps {
 }
 
 const Piece = ({ node, piece }: PieceProps) => {
+  const { playerName, leosSecret } = useInterface();
   const { game, selectedPiece, setSelectedPiece, gameData } = useChess();
 
   const { geometry, material } = node.children[0] as Mesh;
@@ -59,9 +62,20 @@ const Piece = ({ node, piece }: PieceProps) => {
 
   const pointerUpHandler = () => {
     if (piece.isAlive) {
-      if (selectedPiece?.id === piece.id) setSelectedPiece(null);
-      else if (getAvailableMoves(game, piece.square).length > 0)
-        setSelectedPiece(piece);
+      const gameTurn = game.turn();
+      const color = gameTurn === 'w' ? 'white' : 'black';
+
+      if (gameTurn !== piece.color && selectedPiece === null) {
+        SnackbarUtils.error(`It's not your turn! It's ${color} pieces's turn.`);
+      } else {
+        if (piece.color === 'w' && (playerName !== 'Leo' || !leosSecret)) {
+          SnackbarUtils.error('Only Leo can move white pieces!');
+        } else {
+          if (selectedPiece?.id === piece.id) setSelectedPiece(null);
+          else if (getAvailableMoves(game, piece.square).length > 0)
+            setSelectedPiece(piece);
+        }
+      }
     }
   };
 
