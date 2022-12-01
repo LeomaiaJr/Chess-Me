@@ -15,8 +15,8 @@ export const useConnection = () => {
 
   useEffect(() => {
     if (socket.current === null) {
-      const apiBaseUrl = import.meta.env.VITE_API_URL;
-      const socketUrl = apiBaseUrl.replace('http', 'ws');
+      const apiBaseUrl = 'https://chess-me-server.leomaiajr.dev';
+      const socketUrl = apiBaseUrl.replace('https', 'ws');
 
       socket.current = io(socketUrl);
 
