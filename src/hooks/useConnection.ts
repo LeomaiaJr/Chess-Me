@@ -15,10 +15,9 @@ export const useConnection = () => {
 
   useEffect(() => {
     if (socket.current === null) {
-      const apiBaseUrl = 'https://chess-me-server.leomaiajr.dev';
-      const socketUrl = apiBaseUrl.replace('https', 'ws');
-
-      socket.current = io(socketUrl);
+      socket.current = io('https://chess-me-server.leomaiajr.dev', {
+        secure: true,
+      });
 
       socket.current.on(SocketGameEvents.GAME_DATA, (data: ServerGameData) => {
         setPlayersConnected(data.playersConnected);
