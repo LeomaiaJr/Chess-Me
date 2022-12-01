@@ -68,7 +68,11 @@ const Piece = ({ node, piece }: PieceProps) => {
       if (gameTurn !== piece.color && selectedPiece === null) {
         SnackbarUtils.error(`It's not your turn! It's ${color} pieces's turn.`);
       } else {
-        if (piece.color === 'w' && (playerName !== 'Leo' || !leosSecret)) {
+        if (
+          piece.color === 'w' &&
+          (playerName !== 'Leo' || !leosSecret) &&
+          selectedPiece === null
+        ) {
           SnackbarUtils.error('Only Leo can move white pieces!');
         } else {
           if (selectedPiece?.id === piece.id) setSelectedPiece(null);
