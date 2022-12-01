@@ -16,7 +16,7 @@ const Welcome = () => {
 
   const [name, setName] = useState('');
 
-  const getDisabled = () => name.length === 0 || name === 'Leo';
+  const getDisabled = () => name.length === 0;
 
   const handleConfirm = () => {
     setPlayerName(name);
@@ -37,8 +37,6 @@ const Welcome = () => {
           </DialogContentText>
           <Stack mt={3}>
             <TextField
-              error={name === 'Leo'}
-              helperText={name === 'Leo' ? 'Leo is not allowed, sorry' : ''}
               id="playerName"
               InputLabelProps={{ shrink: true }}
               label="Name"
