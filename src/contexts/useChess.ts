@@ -13,8 +13,6 @@ export interface ChessContextData {
 
   selectedPiece: PieceData | null;
   setSelectedPiece: React.Dispatch<React.SetStateAction<PieceData | null>>;
-
-  resetGame: () => void;
 }
 
 export const ChessContext = createContext<ChessContextData>(

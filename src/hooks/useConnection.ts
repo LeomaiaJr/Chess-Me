@@ -36,14 +36,20 @@ export const useConnection = () => {
       });
     }
 
-    getGameData().then((data) => {
-      setPlayersConnected(data.playersConnected);
-      setIsLoadingGameData(false);
-      game.load(data.chessFen);
-      setGameData({
-        deadPieces: data.deadPieces,
-        squares: data.squares,
+    getGameData()
+      .then((data) => {
+        setPlayersConnected(data.playersConnected);
+        setIsLoadingGameData(false);
+        game.load(data.chessFen);
+        setGameData({
+          deadPieces: data.deadPieces,
+          squares: data.squares,
+        });
+      })
+      .catch(() => {
+        SnackbarUtils.error(
+          'Failed to retrieve data from the server, Leo probably messed up again'
+        );
       });
-    });
   }, []);
 };
