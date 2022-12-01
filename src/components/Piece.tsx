@@ -69,11 +69,16 @@ const Piece = ({ node, piece }: PieceProps) => {
 
   const deadAnim = async () => {
     const currPos = groupRef?.current?.position!;
-    const deadPiecesCount = gameData.deadPieces.filter(
-      (deadPiece) => deadPiece.color === piece.color
-    ).length;
 
-    const animsPos = getPieceDeadAnimPos(piece, currPos, deadPiecesCount);
+    const deadPieces = gameData.deadPieces.filter(
+      (deadPiece) => deadPiece.color === piece.color
+    );
+
+    const pieceIndex = deadPieces.findIndex(
+      (deadPiece) => deadPiece.id === piece.id
+    );
+
+    const animsPos = getPieceDeadAnimPos(piece, currPos, pieceIndex);
 
     for (const pos of animsPos) {
       setPositionToLerp(pos);
