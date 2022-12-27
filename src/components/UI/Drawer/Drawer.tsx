@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GroupIcon from '@mui/icons-material/Group';
+import PersonIcon from '@mui/icons-material/Person';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -21,6 +23,7 @@ import { useInterface } from '../../../hooks/useInterface';
 import { EnvironmentPresets } from '../../../@types/interface';
 import { EnvironmentPresetsLabels } from '../../../constants/interface';
 import LeoToken from '../LeoToken/LeoToken';
+import { isoToDate } from '../../../utils/format';
 
 const AppDrawer = () => {
   const {
@@ -31,6 +34,7 @@ const AppDrawer = () => {
     environmentPreset,
     setEnvironmentPreset,
     playersConnected,
+    lastMoveData,
   } = useInterface();
 
   const getPlayersConnectedLabel = () => {
@@ -141,6 +145,46 @@ const AppDrawer = () => {
                 {getPlayersConnectedLabel()}
               </Typography>
             </Box>
+
+            <DrawerDivider />
+            <Stack>
+              <Typography mb={2} fontWeight={500} variant="body1">
+                Last Move Info
+              </Typography>
+              <Box display="flex" alignItems="center" gap={2} component="div">
+                <PersonIcon
+                  sx={{
+                    color: COLORS.PRIMARY,
+                  }}
+                />
+                <Typography
+                  sx={{
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                  }}
+                  variant="body1"
+                >
+                  {lastMoveData?.playerName ?? '-'}
+                </Typography>
+              </Box>
+
+              <Box
+                mt={2}
+                display="flex"
+                alignItems="center"
+                gap={2}
+                component="div"
+              >
+                <ScheduleIcon
+                  sx={{
+                    color: COLORS.PRIMARY,
+                  }}
+                />
+                <Typography variant="body1">
+                  {lastMoveData?.date ? isoToDate(lastMoveData.date) : '-'}
+                </Typography>
+              </Box>
+            </Stack>
           </Stack>
           <Box component="div">
             <LeoToken />

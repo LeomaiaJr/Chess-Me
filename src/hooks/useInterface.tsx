@@ -4,6 +4,7 @@ import {
   InterfaceContext,
   InterfaceContextData,
 } from '../contexts/useInterface';
+import { LastMoveData, ServerGameData } from '../@types/server';
 
 interface InterfaceProviderProps {
   children: React.ReactNode;
@@ -24,6 +25,8 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
   const [playerName, setPlayerName] = useState(
     localStorage.getItem('chessme:playerName')
   );
+
+  const [lastMoveData, setLastMoveData] = useState<LastMoveData>();
 
   const [playersConnected, setPlayersConnected] = useState(0);
 
@@ -50,6 +53,8 @@ const InterfaceProvider = ({ children }: InterfaceProviderProps) => {
         setIsLoadingGameData,
         playersConnected,
         setPlayersConnected,
+        lastMoveData,
+        setLastMoveData,
       }}
     >
       {children}
