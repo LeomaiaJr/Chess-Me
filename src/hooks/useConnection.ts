@@ -8,8 +8,12 @@ import { useInterface } from './useInterface';
 
 export const useConnection = () => {
   const { setGameData, setSelectedPiece, game } = useChess();
-  const { setIsLoadingGameData, setPlayersConnected, playerName } =
-    useInterface();
+  const {
+    setIsLoadingGameData,
+    setPlayersConnected,
+    playerName,
+    setLastMoveData,
+  } = useInterface();
 
   const socket = useRef<Socket | null>(null);
 
@@ -21,6 +25,7 @@ export const useConnection = () => {
 
       socket.current.on(SocketGameEvents.GAME_DATA, (data: ServerGameData) => {
         setPlayersConnected(data.playersConnected);
+        setLastMoveData(data.lastMove);
 
         setSelectedPiece(null);
         game.load(data.chessFen);
@@ -37,6 +42,7 @@ export const useConnection = () => {
 
     getGameData()
       .then((data) => {
+        setLastMoveData(data.lastMove);
         setPlayersConnected(data.playersConnected);
         setIsLoadingGameData(false);
         game.load(data.chessFen);
