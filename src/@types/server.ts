@@ -14,15 +14,17 @@ export interface ServerAuth {
   leosSecret?: string;
 }
 
+export interface LastMoveData {
+  playerName: string;
+  date: string;
+}
+
 export interface ServerGameData {
   chessFen: string;
   squares: (PieceData | null)[][];
   deadPieces: PieceData[];
 
-  lastMove?: {
-    playerName: string;
-    date: string;
-  };
+  lastMove?: LastMoveData;
   score: {
     white: number;
     black: number;

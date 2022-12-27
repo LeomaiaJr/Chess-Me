@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { EnvironmentPresets } from '../@types/interface';
+import { LastMoveData } from '../@types/server';
 
 export interface InterfaceContextData {
   showStats: boolean;
@@ -27,6 +28,9 @@ export interface InterfaceContextData {
 
   playersConnected: number;
   setPlayersConnected: React.Dispatch<React.SetStateAction<number>>;
+
+  lastMoveData: LastMoveData | undefined;
+  setLastMoveData: React.Dispatch<undefined | LastMoveData>;
 }
 
 export const InterfaceContext = createContext<InterfaceContextData>(
